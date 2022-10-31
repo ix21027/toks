@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "50e74f04-25a1-4b0c-a0e2-68b5c8f6a84d",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "admin creates new user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Nickname",
+						"value": "admin",
+						"type": "default"
+					},
+					{
+						"key": "Password",
+						"value": "admin",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nickname\": \"newUser\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin updates self",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Nickname",
+						"value": "admin",
+						"type": "default"
+					},
+					{
+						"key": "Password",
+						"value": "admin",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nickname\": \"admin\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin updates a user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Nickname",
+						"value": "admin",
+						"type": "default"
+					},
+					{
+						"key": "Password",
+						"value": "admin",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nickname\": \"admin\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate tokens",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Nickname",
+						"value": "admin",
+						"type": "default"
+					},
+					{
+						"key": "Password",
+						"value": "password",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nickname\": \"newUser\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tokens/generate/-1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tokens",
+						"generate",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send tokens",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Nickname",
+						"value": "admin",
+						"type": "default"
+					},
+					{
+						"key": "Password",
+						"value": "password",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nickname\": \"newUser\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tokens/generate/-1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tokens",
+						"generate",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Nickname",
+						"value": "admin",
+						"type": "default"
+					},
+					{
+						"key": "Password",
+						"value": "password",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nickname\": \"newUser\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
