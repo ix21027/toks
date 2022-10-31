@@ -135,23 +135,48 @@ func generateTokens(c *fiber.Ctx) error {
 	}
 }
 
+// func sendTokens(c *fiber.Ctx) error {
+// 	lock := "UPDATE users SET balance = balance - $1 WHERE id = $2;"
+// 	send := "UPDATE users SET balance = balance + $1 WHERE id = $2;"
+// 	// amount, from_user, to_user
+// 	db.Exec(context.Background(), "BEGIN;")
+// 	if _, err := db.Exec(context.Background(), lock, c.Params("amount"), c.Locals("userId")); err == nil {
+// 		if _, err := db.Exec(context.Background(), send, c.Params("amount"), c.Params("to_user")); err == nil {
+// 			db.Exec(context.Background(), "COMMIT;")
+// 			return c.JSON(fiber.Map{"message": "Send tokens"})
+// 		} else {
+// 			db.Exec(context.Background(), "ROLLBACK;")
+// 			return c.JSON(fiber.Map{"error": err.Error()})
+// 		}
+// 	} else {
+// 		db.Exec(context.Background(), "ROLLBACK;")
+// 		return c.JSON(fiber.Map{"error": err.Error()})
+// 	}
+// }
+
 func sendTokens(c *fiber.Ctx) error {
-	lock := "UPDATE users SET balance = balance - $1 WHERE id = $2;"
-	send := "UPDATE users SET balance = balance + $1 WHERE id = $2;"
-	// amount, from_user, to_user
-	db.Exec(context.Background(), "BEGIN;")
-	if _, err := db.Exec(context.Background(), lock, c.Params("amount"), c.Locals("userId")); err == nil {
-		if _, err := db.Exec(context.Background(), send, c.Params("amount"), c.Params("to_user")); err == nil {
-			db.Exec(context.Background(), "COMMIT;")
-			return c.JSON(fiber.Map{"message": "Send tokens"})
-		} else {
-			db.Exec(context.Background(), "ROLLBACK;")
-			return c.JSON(fiber.Map{"error": err.Error()})
-		}
-	} else {
-		db.Exec(context.Background(), "ROLLBACK;")
+	send := "UPDATE users SET balance = balance - $1 WHERE id = $2;"
+	get := "UPDATE users SET balance = balance + $1 WHERE id = $2;"
+
+	tx, err := db.Begin(context.Background())
+	if err != nil {
 		return c.JSON(fiber.Map{"error": err.Error()})
 	}
+	defer tx.Rollback(context.Background())
+
+	if _, err := tx.Exec(context.Background(), send, c.Params("amount"), c.Locals("userId")); err != nil {
+		return c.JSON(fiber.Map{"error": err.Error()})
+	}
+
+	if _, err := tx.Exec(context.Background(), get, c.Params("amount"), c.Params("to_user")); err != nil {
+		return c.JSON(fiber.Map{"error": err.Error()})
+	}
+
+	if err := tx.Commit(context.Background()); err != nil {
+		return c.JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{"message": "Send tokens"})
 }
 
 func connectDatabase() {
