@@ -42,7 +42,7 @@ func authUser(c *fiber.Ctx) error {
 		c.Get("Nickname"), c.Get("Password"),
 	).Scan(&id, &admin)
 
-	if admin || id != "" {
+	if id != "" {
 		c.Locals("userId", id)
 		c.Locals("userAdmin", admin)
 		return c.Next()
